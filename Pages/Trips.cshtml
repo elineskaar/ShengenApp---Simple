@@ -1,0 +1,165 @@
+@page
+@model TripsModel
+@using System.Globalization
+@{
+    ViewData["Title"] = "My trips";
+    ViewData["ShowDelete"] = true;
+    var weekdays = new[] { "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su" };
+    var waitingForDeparture = Model.ArrivalDate is not null && Model.DepartureDate is null;
+}
+
+<section id="add-trip">
+    <div class="section-head">
+        <h2 class="label">Add trip</h2>
+    </div>
+    <form method="post" asp-page-handler="Save" asp-fragment="add-trip" class="planner">
+        @* Første knapp er standard når man trykker Enter; den andre oppdaterer skjemaet når et felt endres. *@
+        <button type="submit" hidden></button>
+        <button type="submit" hidden id="refresh" asp-page-handler="Update" asp-fragment="add-trip" formnovalidate></button>
+        <input type="hidden" name="Month" value="@Model.FirstMonth.ToString("yyyy-MM-dd")">
+
+        <label class="field">
+            <span class="label">Country</span>
+            <select asp-for="CountryCode" required onchange="document.getElementById('refresh').click()">
+                <option value="">Choose a country</option>
+                @foreach (var country in Countries.All)
+                {
+                    <option value="@country.Code">@country.Name</option>
+                }
+                <option value="@Countries.Other.Code">@Countries.Other.Name</option>
+            </select>
+        </label>
+
+        <div class="date-row">
+            <label class="field">
+                <span class="label">Arrival</span>
+                <input asp-for="Arrival" placeholder="dd.mm.yyyy" autocomplete="off" required onchange="document.getElementById('refresh').click()">
+            </label>
+            <label class="field">
+                <span class="label">Departure</span>
+                <input asp-for="Departure" placeholder="dd.mm.yyyy" autocomplete="off" required onchange="document.getElementById('refresh').click()">
+            </label>
+            <p class="trip-days"><strong>@(Model.TripDays?.ToString() ?? "–")</strong> days</p>
+        </div>
+
+        <div class="calendar">
+            <div class="calendar-head">
+                <button type="submit" class="square" name="shift" value="-1" asp-page-handler="Update" asp-fragment="add-trip" formnovalidate aria-label="Previous month">‹</button>
+                <span>@(waitingForDeparture ? "Click your departure day" : "Click your arrival day")</span>
+                <button type="submit" class="square" name="shift" value="1" asp-page-handler="Update" asp-fragment="add-trip" formnovalidate aria-label="Next month">›</button>
+            </div>
+
+            <div class="months">
+                @foreach (var month in new[] { Model.FirstMonth, Model.FirstMonth.AddMonths(1) })
+                {
+                    var firstMonday = month.AddDays(-(((int)month.DayOfWeek + 6) % 7));
+                    <div class="month">
+                        <h3 class="label">@month.ToString("MMMM yyyy", CultureInfo.InvariantCulture)</h3>
+                        <div class="cal-grid">
+                            <span></span>
+                            @foreach (var weekday in weekdays)
+                            {
+                                <span class="weekday">@weekday</span>
+                            }
+
+                            @for (var weekStart = firstMonday; weekStart < month.AddMonths(1); weekStart = weekStart.AddDays(7))
+                            {
+                                <span class="week">@ISOWeek.GetWeekOfYear(weekStart.ToDateTime(TimeOnly.MinValue))</span>
+                                @for (var i = 0; i < 7; i++)
+                                {
+                                    var day = weekStart.AddDays(i);
+                                    if (day.Month != month.Month)
+                                    {
+                                        <span></span>
+                                        continue;
+                                    }
+
+                                    var isPicked = day == Model.ArrivalDate || day == Model.DepartureDate;
+                                    var inRange = Model.ArrivalDate is DateOnly a && Model.DepartureDate is DateOnly d && day > a && day < d;
+                                    var classes = string.Join(" ",
+                                        "day",
+                                        isPicked ? "picked" : "",
+                                        inRange ? "in-range" : "",
+                                        Model.BookedDays.Contains(day) ? "booked" : "",
+                                        day == Model.Today ? "today" : "");
+
+                                    <button type="submit" class="@classes" name="pick" value="@day.ToString("yyyy-MM-dd")"
+                                            asp-page-handler="Update" asp-fragment="add-trip" formnovalidate>@day.Day</button>
+                                }
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <p class="legend"><span>• Already booked</span><span>Underline: today</span><span>Small numbers: week</span></p>
+        </div>
+
+        @if (Model.Preview is not null)
+        {
+            <p class="preview @(Model.PreviewIsBad ? "bad" : "")">@Model.Preview</p>
+        }
+        @if (Model.ErrorMessage is not null)
+        {
+            <p class="preview bad">@Model.ErrorMessage</p>
+        }
+
+        <label class="field">
+            <span class="label">Notes (optional)</span>
+            <input asp-for="Notes" placeholder="Remote work from Lisbon">
+        </label>
+
+        <div class="actions">
+            <button type="submit" class="button">Save trip</button>
+            <button type="submit" class="button button-outline" name="clear" value="true" asp-page-handler="Update" asp-fragment="add-trip" formnovalidate>Clear dates</button>
+        </div>
+    </form>
+</section>
+
+<section>
+    <div class="section-head">
+        <h2 class="label">Upcoming</h2>
+        <span class="label">@Model.Upcoming.Count @(Model.Upcoming.Count == 1 ? "trip" : "trips")</span>
+    </div>
+    @if (Model.Upcoming.Count == 0)
+    {
+        <p class="empty">No upcoming trips yet.</p>
+    }
+    @foreach (var check in Model.Upcoming)
+    {
+        <partial name="_TripCard" model="check" />
+    }
+</section>
+
+<section>
+    <div class="section-head">
+        <h2 class="label">Previous</h2>
+        <span class="label">@Model.Previous.Count @(Model.Previous.Count == 1 ? "trip" : "trips")</span>
+    </div>
+    @if (Model.Previous.Count == 0)
+    {
+        <p class="empty">No previous trips. Add earlier stays too, so the count is right.</p>
+    }
+    @foreach (var check in Model.Previous)
+    {
+        <partial name="_TripCard" model="check" />
+    }
+</section>
+
+@section Scripts {
+    <script>
+        // Klikk i kalenderen oppdaterer bare skjemaet, så siden ikke hopper til toppen.
+        document.addEventListener("submit", async (event) => {
+            const submitter = event.submitter;
+            const action = submitter?.getAttribute("formaction");
+            if (!action?.includes("handler=Update")) {
+                return;
+            }
+
+            event.preventDefault();
+            const response = await fetch(action, { method: "POST", body: new FormData(event.target, submitter) });
+            const page = new DOMParser().parseFromString(await response.text(), "text/html");
+            document.getElementById("add-trip").replaceWith(page.getElementById("add-trip"));
+        });
+    </script>
+}

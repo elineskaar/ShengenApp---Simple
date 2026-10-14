@@ -1,0 +1,118 @@
+@page
+@model IndexModel
+@using System.Globalization
+@{
+    ViewData["Title"] = "Overview";
+    var statusClass = Model.PastOverstay is not null ? "bad" : Model.PlannedOverstay is not null ? "warn" : "";
+}
+
+<section class="hero">
+    @* 90 streker rundt en sirkel: rosa for dager igjen, grå for brukte dager. *@
+    <div class="ring">
+        <svg viewBox="0 0 200 200" aria-hidden="true">
+            @for (var i = 0; i < SchengenDays.AllowedDays; i++)
+            {
+                var angle = (i * 4 - 90) * Math.PI / 180;
+                <line x1="@(100 + 82 * Math.Cos(angle))" y1="@(100 + 82 * Math.Sin(angle))"
+                      x2="@(100 + 96 * Math.Cos(angle))" y2="@(100 + 96 * Math.Sin(angle))"
+                      class="@(i < Model.Left ? "tick-left" : "tick-used")" />
+            }
+        </svg>
+        <div class="ring-text">
+            <span class="ring-number">@Model.Left</span>
+            <span class="label">Days left</span>
+        </div>
+    </div>
+
+    <div class="hero-text">
+        <p class="label">Status · @Model.Today.ToString("dd.MM.yyyy") · <span class="status-word @statusClass">@Model.Status</span></p>
+
+        @if (Model.Left > 0)
+        {
+            <h1>You can spend <mark>@Model.Left more @(Model.Left == 1 ? "day" : "days")</mark> in Schengen.</h1>
+        }
+        else
+        {
+            <h1>You have <mark>no days left</mark> in Schengen.</h1>
+        }
+
+        @if (Model.StayUntil is DateOnly stayUntil)
+        {
+            <p class="lead">Enter today and you can stay until <span class="mono-value">@stayUntil.ToString("dd.MM.yyyy")</span>.</p>
+        }
+        else if (Model.NextReturn is DateOnly firstReturn)
+        {
+            <p class="lead">Days start coming back on <span class="mono-value">@firstReturn.ToString("dd.MM.yyyy")</span>.</p>
+        }
+
+        @if (Model.PastOverstay is TripCheck past)
+        {
+            <p class="alert bad">You went over 90 days on @past.FirstDayOverLimit?.ToString("dd.MM.yyyy") (@past.Trip.Country.Name).</p>
+        }
+        @if (Model.PlannedOverstay is TripCheck planned)
+        {
+            <p class="alert warn">Your trip to @planned.Trip.Country.Name goes over the limit on @planned.FirstDayOverLimit?.ToString("dd.MM.yyyy").</p>
+        }
+
+        <dl class="stats">
+            <div>
+                <dt class="label">Used</dt>
+                <dd>@Model.Used/90</dd>
+            </div>
+            <div>
+                <dt class="label">Window from</dt>
+                <dd>@Model.WindowStart.ToString("dd.MM.yyyy")</dd>
+            </div>
+            <div>
+                <dt class="label">Days return</dt>
+                <dd>@(Model.NextReturn?.ToString("dd.MM.yyyy") ?? "—")</dd>
+            </div>
+        </dl>
+
+        <a class="button" asp-page="/Trips" asp-fragment="add-trip">+ Add trip</a>
+    </div>
+</section>
+
+<section class="timeline">
+    <div class="section-head">
+        <h2 class="label">Last 180 days</h2>
+        <span class="label">@Model.Used days in Schengen</span>
+    </div>
+    <div class="bars">
+        @foreach (var day in Model.Timeline)
+        {
+            <span class="bar @(day.InSchengen ? "on" : day.IsMonthStart ? "month" : "")"></span>
+        }
+    </div>
+    <div class="axis trip-axis">
+        @foreach (var label in Model.TripLabels)
+        {
+            <span style="left: @label.Percent.ToString("0.##", CultureInfo.InvariantCulture)%">@label.Text</span>
+        }
+    </div>
+    <div class="axis">
+        @foreach (var label in Model.MonthLabels)
+        {
+            <span style="left: @label.Percent.ToString("0.##", CultureInfo.InvariantCulture)%">@label.Text</span>
+        }
+    </div>
+    <div class="section-head axis-ends">
+        <span>@Model.WindowStart.ToString("dd.MM.yyyy")</span>
+        <span>Today @Model.Today.ToString("dd.MM.yyyy")</span>
+    </div>
+</section>
+
+<section>
+    <div class="section-head">
+        <h2 class="label">Upcoming</h2>
+        <span class="label">@Model.Upcoming.Count @(Model.Upcoming.Count == 1 ? "trip" : "trips")</span>
+    </div>
+    @if (Model.Upcoming.Count == 0)
+    {
+        <p class="empty">No upcoming trips yet.</p>
+    }
+    @foreach (var check in Model.Upcoming)
+    {
+        <partial name="_TripCard" model="check" />
+    }
+</section>

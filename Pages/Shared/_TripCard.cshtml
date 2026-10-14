@@ -1,0 +1,62 @@
+@model TripCheck
+@{
+    var trip = Model.Trip;
+    var country = trip.Country;
+    var isPast = trip.End < DateOnly.FromDateTime(DateTime.Today);
+}
+<article class="ticket @(isPast ? "past" : "")">
+    <div class="ticket-main">
+        <span class="code">@(country == Countries.Other ? "··" : country.Code)</span>
+        <div class="ticket-name">
+            <strong>@country.Name</strong>
+            @if (!string.IsNullOrWhiteSpace(trip.Notes))
+            {
+                <p>@trip.Notes</p>
+            }
+        </div>
+        <div class="ticket-dates">
+            <div>
+                <span class="label">Arrive</span>
+                <span class="mono-value">@trip.Start.ToString("dd.MM.yy")</span>
+            </div>
+            <span class="arrow">→</span>
+            <div>
+                <span class="label">Depart</span>
+                <span class="mono-value">@trip.End.ToString("dd.MM.yy")</span>
+            </div>
+        </div>
+    </div>
+
+    @if (Model.FirstDayOverLimit is DateOnly overLimit)
+    {
+        <div class="stub stub-bad">
+            <span class="stub-number">@trip.Days</span>
+            <span class="label">Over limit</span>
+            <span class="label">@overLimit.ToString("dd.MM.yy")</span>
+        </div>
+    }
+    else if (country.IsSchengen)
+    {
+        <div class="stub stub-counted">
+            <span class="stub-number">@trip.Days</span>
+            <span class="label">Days</span>
+        </div>
+    }
+    else
+    {
+        <div class="stub">
+            <span class="stub-number">@trip.Days</span>
+            <span class="label">Days</span>
+            <span class="label">Not counted</span>
+        </div>
+    }
+
+    @if (ViewData["ShowDelete"] is true)
+    {
+        @* Vises først når du holder musen over kortet. *@
+        <form method="post" asp-page="/Trips" asp-page-handler="Delete" class="delete-form">
+            <input type="hidden" name="id" value="@trip.Id">
+            <button type="submit" class="delete" aria-label="Delete trip to @country.Name">×</button>
+        </form>
+    }
+</article>

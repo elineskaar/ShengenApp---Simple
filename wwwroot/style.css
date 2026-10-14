@@ -1,0 +1,730 @@
+:root {
+    --page: #efeded;
+    --card: #ffffff;
+    --ink: #1c1b1b;
+    --muted: #767273;
+    --line: #e8e5e5;
+    --accent: #c8497a;
+    --accent-soft: #f8e6ed;
+    --bar: #ebe8e8;
+    --bar-month: #cfc9ca;
+    --good: #2f6b5a;
+    --bad: #b42318;
+    --bad-soft: #fdeeec;
+    --warn: #8a5a00;
+    --warn-soft: #fff5de;
+    --mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+    --sans: "Inter Tight", system-ui, "Segoe UI", sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: var(--page);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+a {
+    color: inherit;
+}
+
+h1 {
+    margin: 0;
+    font-size: clamp(1.35rem, 2.4vw, 1.75rem);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+}
+
+/* Små etiketter i monospace, som "STATUS" og "ARRIVE" */
+.label {
+    margin: 0;
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.mono-value {
+    font-family: var(--mono);
+    font-size: 0.95rem;
+}
+
+/* Rammen rundt appen */
+.app {
+    max-width: 1000px;
+    margin: 32px auto;
+    background: var(--card);
+    border: 1px solid var(--line);
+}
+
+.topbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 16px 28px;
+    border-bottom: 1px solid var(--line);
+}
+
+.brand {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-decoration: none;
+}
+
+.brand span {
+    color: var(--accent);
+}
+
+.topbar nav {
+    display: flex;
+    gap: 22px;
+}
+
+.topbar nav a {
+    padding-bottom: 4px;
+    border-bottom: 2px solid transparent;
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.topbar nav a:hover {
+    color: var(--ink);
+}
+
+.topbar nav a.active {
+    border-color: var(--accent);
+    color: var(--ink);
+    font-weight: 700;
+}
+
+.content {
+    padding: 32px 28px;
+}
+
+section {
+    margin-bottom: 40px;
+    scroll-margin-top: 24px;
+}
+
+.section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.section-head h2.label {
+    color: var(--ink);
+    font-weight: 700;
+}
+
+.empty {
+    color: var(--muted);
+}
+
+.alert {
+    margin: 10px 0 0;
+    padding: 8px 12px;
+    font-size: 0.85rem;
+}
+
+.alert.bad {
+    background: var(--bad-soft);
+    color: var(--bad);
+}
+
+.alert.warn {
+    background: var(--warn-soft);
+    color: var(--warn);
+}
+
+/* Knapper */
+.button {
+    display: inline-block;
+    padding: 9px 16px;
+    border: 1px solid var(--ink);
+    border-radius: 3px;
+    background: var(--ink);
+    color: #fff;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-decoration: none;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.button:hover {
+    background: #3a3838;
+}
+
+.button-outline {
+    border-color: var(--line);
+    background: var(--card);
+    color: var(--ink);
+}
+
+.button-outline:hover {
+    background: var(--page);
+}
+
+/* Ring og status */
+.hero {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.ring {
+    position: relative;
+    width: 100%;
+    max-width: 180px;
+    aspect-ratio: 1;
+}
+
+.ring svg {
+    width: 100%;
+    height: 100%;
+}
+
+.ring line {
+    stroke-width: 1.6;
+    stroke-linecap: round;
+}
+
+.tick-left {
+    stroke: var(--accent);
+}
+
+.tick-used {
+    stroke: #e2dedf;
+}
+
+.ring-text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+}
+
+.ring-number {
+    font-family: var(--mono);
+    font-size: 2.6rem;
+    font-weight: 600;
+    line-height: 1;
+}
+
+.hero-text .label:first-child {
+    margin-bottom: 10px;
+}
+
+.status-word.bad {
+    color: var(--bad);
+}
+
+.status-word.warn {
+    color: var(--warn);
+}
+
+mark {
+    padding: 0 4px;
+    background: var(--accent-soft);
+    color: inherit;
+}
+
+.lead {
+    margin: 6px 0 0;
+    color: var(--muted);
+}
+
+.lead .mono-value {
+    color: var(--ink);
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin: 20px 0;
+    padding-top: 16px;
+    border-top: 1px dashed #dcd8d9;
+}
+
+.stats dd {
+    margin: 4px 0 0;
+    font-family: var(--mono);
+    font-size: 1rem;
+}
+
+/* De siste 180 dagene */
+.bars {
+    display: flex;
+    gap: 1px;
+    height: 48px;
+}
+
+.bar {
+    flex: 1;
+    background: var(--bar);
+}
+
+.bar.month {
+    background: var(--bar-month);
+}
+
+.bar.on {
+    background: var(--accent);
+}
+
+.axis {
+    position: relative;
+    height: 18px;
+    margin-top: 4px;
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+}
+
+.axis span {
+    position: absolute;
+    white-space: nowrap;
+}
+
+.trip-axis {
+    margin-top: 8px;
+    color: var(--accent);
+}
+
+.axis-ends {
+    margin-top: 4px;
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+/* Reisekort, formet som en billett */
+.ticket {
+    position: relative;
+    display: flex;
+    margin-bottom: 10px;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+}
+
+.ticket.past {
+    opacity: 0.6;
+}
+
+.ticket-main {
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 18px;
+    padding: 14px 18px;
+}
+
+.code {
+    min-width: 32px;
+    font-family: var(--mono);
+    font-size: 1.15rem;
+}
+
+.ticket-name {
+    flex: 1 1 180px;
+}
+
+.ticket-name strong {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.ticket-name p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+.ticket-dates {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.ticket-dates > div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.arrow {
+    color: var(--accent);
+}
+
+.stub {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 112px;
+    padding: 10px;
+    border-left: 1px dashed #d6d1d2;
+    background: #f5f3f3;
+    text-align: center;
+}
+
+/* Halvsirkler som "hakk" i billetten */
+.stub::before,
+.stub::after {
+    content: "";
+    position: absolute;
+    left: -7px;
+    width: 12px;
+    height: 12px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: var(--card);
+}
+
+.stub::before {
+    top: -7px;
+}
+
+.stub::after {
+    bottom: -7px;
+}
+
+.stub-number {
+    font-family: var(--mono);
+    font-size: 1.35rem;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.stub .label {
+    font-size: 0.6rem;
+}
+
+.stub-counted {
+    background: var(--accent-soft);
+}
+
+.stub-bad {
+    background: var(--bad-soft);
+    color: var(--bad);
+}
+
+.stub-bad .label {
+    color: var(--bad);
+}
+
+/* Sletteknappen vises bare når musen er over kortet */
+.delete-form {
+    position: absolute;
+    top: 4px;
+    left: 6px;
+    opacity: 0;
+    transition: opacity 0.15s;
+}
+
+.ticket:hover .delete-form,
+.delete-form:focus-within {
+    opacity: 1;
+}
+
+@media (hover: none) {
+    .delete-form {
+        opacity: 1;
+    }
+}
+
+.delete {
+    padding: 0 4px;
+    border: 0;
+    background: none;
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.delete:hover {
+    color: var(--bad);
+}
+
+/* Legg til reise */
+.planner {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1px solid #dedada;
+    border-radius: 3px;
+    background: var(--card);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 0.95rem;
+}
+
+.date-row input {
+    font-family: var(--mono);
+}
+
+input::placeholder {
+    color: #aaa5a6;
+}
+
+input:focus,
+select:focus {
+    border-color: var(--accent);
+    outline: 2px solid var(--accent-soft);
+}
+
+.date-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 14px;
+    align-items: end;
+}
+
+.trip-days {
+    margin: 0 0 10px;
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 0.85rem;
+}
+
+.trip-days strong {
+    color: var(--ink);
+}
+
+.calendar {
+    padding: 16px 18px;
+    border: 1px solid var(--line);
+}
+
+.calendar-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 0.8rem;
+}
+
+.square {
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    background: var(--card);
+    color: var(--ink);
+    cursor: pointer;
+}
+
+.square:hover {
+    background: var(--page);
+}
+
+.months {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+}
+
+.month h3 {
+    margin-bottom: 10px;
+    color: var(--ink);
+    font-weight: 700;
+}
+
+.cal-grid {
+    display: grid;
+    grid-template-columns: 26px repeat(7, 1fr);
+    row-gap: 2px;
+    align-items: center;
+}
+
+.weekday {
+    margin-bottom: 4px;
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    text-align: center;
+}
+
+.week {
+    color: #b0abac;
+    font-family: var(--mono);
+    font-size: 0.62rem;
+}
+
+.day {
+    position: relative;
+    height: 36px;
+    border: 0;
+    background: none;
+    color: var(--ink);
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.day:hover {
+    outline: 1px solid var(--accent);
+    outline-offset: -1px;
+}
+
+.day.in-range {
+    background: var(--accent-soft);
+}
+
+.day.picked {
+    background: var(--accent);
+    color: #fff;
+    font-weight: 600;
+}
+
+.day.booked::after {
+    content: "";
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    width: 3px;
+    height: 3px;
+    margin-left: -1.5px;
+    border-radius: 50%;
+    background: #666;
+}
+
+.day.today {
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 3px;
+}
+
+.legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 18px;
+    margin: 12px 0 0;
+    color: var(--muted);
+    font-size: 0.8rem;
+}
+
+.preview {
+    margin: 0;
+    color: var(--good);
+    font-family: var(--mono);
+    font-size: 0.85rem;
+}
+
+.preview.bad {
+    color: var(--bad);
+    font-weight: 600;
+}
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* Mobil og nettbrett */
+@media (max-width: 760px) {
+    .hero {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .ring {
+        max-width: 160px;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 640px) {
+    .app {
+        margin: 0;
+        border: 0;
+    }
+
+    .topbar,
+    .content {
+        padding: 16px;
+    }
+
+    .bars {
+        gap: 0;
+    }
+
+    .stats,
+    .months,
+    .date-row {
+        grid-template-columns: 1fr;
+    }
+
+    .trip-days {
+        margin: 0;
+    }
+
+    .calendar {
+        padding: 12px;
+    }
+
+    .ticket {
+        flex-direction: column;
+    }
+
+    .stub {
+        flex-direction: row;
+        gap: 8px;
+        width: auto;
+        border-top: 1px dashed #d6d1d2;
+        border-left: 0;
+    }
+
+    .stub::before,
+    .stub::after {
+        display: none;
+    }
+}

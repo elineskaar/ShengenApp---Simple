@@ -1,0 +1,16 @@
+[
+  {
+    "Id": "b980ed41-a7fc-4e6c-9a66-7b4e181ebf7f",
+    "CountryCode": "HR",
+    "Start": "2026-10-09",
+    "End": "2026-10-17",
+    "Notes": null
+  },
+  {
+    "Id": "fded4c9c-ea1a-4641-ab86-ea8a14e26860",
+    "CountryCode": "FR",
+    "Start": "2026-07-07",
+    "End": "2026-08-21",
+    "Notes": null
+  }
+]

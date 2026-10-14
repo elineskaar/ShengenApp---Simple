@@ -1,0 +1,32 @@
+@{
+    var currentPage = ViewContext.RouteData.Values["page"] as string;
+    string NavClass(string page) => currentPage == page ? "active" : "";
+}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewData["Title"] · Schengen/90</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap">
+    <link rel="stylesheet" href="~/style.css" asp-append-version="true">
+</head>
+<body>
+<div class="app">
+    <header class="topbar">
+        <a class="brand" asp-page="/Index">SCHENGEN<span>/90</span></a>
+        <nav>
+            <a class="@NavClass("/Index")" asp-page="/Index">Overview</a>
+            <a class="@NavClass("/Trips")" asp-page="/Trips">My trips</a>
+        </nav>
+    </header>
+
+    <main class="content">
+        @RenderBody()
+    </main>
+</div>
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,38 @@
+C:\Users\eline\Hobbyprosjekt - ShengenApp\bin\Debug\net9.0\ShengenApp.staticwebassets.runtime.json
+C:\Users\eline\Hobbyprosjekt - ShengenApp\bin\Debug\net9.0\ShengenApp.staticwebassets.endpoints.json
+C:\Users\eline\Hobbyprosjekt - ShengenApp\bin\Debug\net9.0\ShengenApp.exe
+C:\Users\eline\Hobbyprosjekt - ShengenApp\bin\Debug\net9.0\ShengenApp.deps.json
+C:\Users\eline\Hobbyprosjekt - ShengenApp\bin\Debug\net9.0\ShengenApp.runtimeconfig.json
+C:\Users\eline\Hobbyprosjekt - ShengenApp\bin\Debug\net9.0\ShengenApp.dll
+C:\Users\eline\Hobbyprosjekt - ShengenApp\bin\Debug\net9.0\ShengenApp.pdb
+C:\Users\eline\Hobbyprosjekt - ShengenApp\obj\Debug\net9.0\rpswa.dswa.cache.json
+C:\Users\eline\Hobbyprosjekt - ShengenApp\obj\Debug\net9.0\ShengenApp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\eline\Hobbyprosjekt - ShengenApp\obj\Debug\net9.0\ShengenApp.AssemblyInfoInputs.cache
+C:\Users\eline\Hobbyprosjekt - ShengenApp\obj\Debug\net9.0\ShengenApp.AssemblyInfo.cs
+C:\Users\eline\Hobbyprosjekt - ShengenApp\obj\Debug\net9.0\ShengenApp.csproj.CoreCompileInputs.cache
+C:\Users\eline\Hobbyprosjekt - ShengenApp\obj\Debug\net9.0\ShengenApp.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\eline\Hobbyprosjekt - ShengenApp\obj\Debug\net9.0\ShengenApp.RazorAssemblyInfo.cache
+C:\Users\eline\Hobbyprosjekt - ShengenApp\obj\Debug\net9.0\ShengenApp.RazorAssemblyInfo.cs
+C:\Users\eline\Hobbyprosjekt - ShengenApp\obj\Debug\net9.0\rjimswa.dswa.cache.json
+C:\Users\eline\Hobbyprosjekt - ShengenApp\obj\Debug\net9.0\rjsmrazor.dswa.cache.json
+C:\Users\eline\Hobbyprosjekt - ShengenApp\obj\Debug\net9.0\rjsmcshtml.dswa.cache.json
+C:\Users\eline\Hobbyprosjekt - ShengenApp\obj\Debug\net9.0\scopedcss\bundle\ShengenApp.styles.css
+C:\Users\eline\Hobbyprosjekt - ShengenApp\obj\Debug\net9.0\staticwebassets.build.json
+C:\Users\eline\Hobbyprosjekt - ShengenApp\obj\Debug\net9.0\staticwebassets.build.json.cache
+C:\Users\eline\Hobbyprosjekt - ShengenApp\obj\Debug\net9.0\staticwebassets.development.json
+C:\Users\eline\Hobbyprosjekt - ShengenApp\obj\Debug\net9.0\staticwebassets.build.endpoints.json
+C:\Users\eline\Hobbyprosjekt - ShengenApp\obj\Debug\net9.0\ShengenApp.dll
+C:\Users\eline\Hobbyprosjekt - ShengenApp\obj\Debug\net9.0\refint\ShengenApp.dll
+C:\Users\eline\Hobbyprosjekt - ShengenApp\obj\Debug\net9.0\ShengenApp.pdb
+C:\Users\eline\Hobbyprosjekt - ShengenApp\obj\Debug\net9.0\ShengenApp.genruntimeconfig.cache
+C:\Users\eline\Hobbyprosjekt - ShengenApp\obj\Debug\net9.0\ref\ShengenApp.dll
+C:\Users\eline\AppData\Local\Temp\claude\c--Users-eline-Hobbyprosjekt---ShengenApp\5ad510be-a060-4186-8d0e-f9d0cd8b959f\scratchpad\out\ShengenApp.staticwebassets.runtime.json
+C:\Users\eline\AppData\Local\Temp\claude\c--Users-eline-Hobbyprosjekt---ShengenApp\5ad510be-a060-4186-8d0e-f9d0cd8b959f\scratchpad\out\ShengenApp.staticwebassets.endpoints.json
+C:\Users\eline\AppData\Local\Temp\claude\c--Users-eline-Hobbyprosjekt---ShengenApp\5ad510be-a060-4186-8d0e-f9d0cd8b959f\scratchpad\out\ShengenApp.exe
+C:\Users\eline\AppData\Local\Temp\claude\c--Users-eline-Hobbyprosjekt---ShengenApp\5ad510be-a060-4186-8d0e-f9d0cd8b959f\scratchpad\out\ShengenApp.deps.json
+C:\Users\eline\AppData\Local\Temp\claude\c--Users-eline-Hobbyprosjekt---ShengenApp\5ad510be-a060-4186-8d0e-f9d0cd8b959f\scratchpad\out\ShengenApp.runtimeconfig.json
+C:\Users\eline\AppData\Local\Temp\claude\c--Users-eline-Hobbyprosjekt---ShengenApp\5ad510be-a060-4186-8d0e-f9d0cd8b959f\scratchpad\out\ShengenApp.dll
+C:\Users\eline\AppData\Local\Temp\claude\c--Users-eline-Hobbyprosjekt---ShengenApp\5ad510be-a060-4186-8d0e-f9d0cd8b959f\scratchpad\out\ShengenApp.pdb
+C:\Users\eline\AppData\Local\Temp\claude\c--Users-eline-Hobbyprosjekt---ShengenApp\5ad510be-a060-4186-8d0e-f9d0cd8b959f\scratchpad\out\trips.json
+C:\Users\eline\Hobbyprosjekt - ShengenApp\obj\Debug\net9.0\compressed\ihvpd7dawl-9kqr5nc32t.gz
+C:\Users\eline\Hobbyprosjekt - ShengenApp\bin\Debug\net9.0\trips.json
